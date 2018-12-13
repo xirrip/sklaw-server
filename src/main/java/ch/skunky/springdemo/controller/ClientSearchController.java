@@ -17,14 +17,17 @@ public class ClientSearchController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping(value="/doctors", method= RequestMethod.GET,
+    @RequestMapping(value="/clients", method= RequestMethod.GET,
             produces="application/json")
-    public List<Client> searchDoctor(
-            @RequestParam(value="firstName", required=false) String firstName,
-            @RequestParam(value="lastName", required=false) String lastName)
+    public List<Client> searchClient(
+            @RequestParam(value="name", required=false) String name)
     {
-        List<Client> clientList = clientService.find(firstName, lastName);
-        return clientList;
+        if(name!=null){
+            return clientService.findClientLike(name);
+        }
+        else{
+            return clientService.findAll();
+        }
     }
 
 

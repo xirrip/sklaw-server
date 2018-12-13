@@ -7,10 +7,14 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * https://www.baeldung.com/spring-data-repositories
+ */
+
 @Repository
 @Transactional
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
-    public List<Client> findByFirstNameAndLastName(String location, String speciality);
+    public List<Client> findClientByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
 
 }

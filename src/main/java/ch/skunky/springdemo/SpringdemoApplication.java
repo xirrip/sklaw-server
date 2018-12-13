@@ -21,6 +21,9 @@ import java.util.Map;
  *
  * look at: Spring WebFlux
  *
+ *
+ * java + docker (+ online docker server?)
+ * https://codefresh.io/docker-tutorial/java_docker_pipeline/
  */
 
 @Controller

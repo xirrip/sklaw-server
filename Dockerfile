@@ -1,8 +1,11 @@
-   FROM openjdk:11.0.1-jdk
+#   FROM openjdk:11.0.1-jdk
+   FROM openjdk:11-jre
    VOLUME /tmp
-   ARG JAR_FILE=build/libs/springdemo-0.0.1-SNAPSHOT.jar
-   COPY ${JAR_FILE} app.jar
+
+   COPY build/libs/*.war app.war
 
    EXPOSE 8080
 
-   ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+   CMD ["java","-jar","/app.war"]
+   #ENTRYPOINT ["java","-jar","/app.war"]
+
