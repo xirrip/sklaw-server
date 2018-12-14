@@ -4,7 +4,6 @@ import ch.skunky.springdemo.model.Client;
 import ch.skunky.springdemo.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.LastModified;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,13 @@ import java.util.Optional;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-    @Autowired
     private ClientRepository clientRepository;
+
+    // make dependency visible
+    @Autowired
+    public ClientServiceImpl(ClientRepository clientRepository){
+        this.clientRepository = clientRepository;
+    }
 
     @Override
     public List<Client> findAll() {

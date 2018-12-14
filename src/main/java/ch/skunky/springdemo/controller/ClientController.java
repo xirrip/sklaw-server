@@ -3,10 +3,8 @@ package ch.skunky.springdemo.controller;
 import ch.skunky.springdemo.model.Client;
 import ch.skunky.springdemo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -18,13 +16,7 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("/clients/{id}")
-    public Client getClient(@PathVariable long id){
-        Optional<Client> client = clientService.getClient(id);
-        if(client.isPresent()) return client.get();
-        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-    }
-
+    @CrossOrigin
     @DeleteMapping("/clients/{id}")
     public void deleteClient(@PathVariable long id){
         clientService.deleteClient(id);
@@ -40,6 +32,24 @@ public class ClientController {
         return ResponseEntity.created(location).build();
 
     }
+
+    @CrossOrigin
+    @PutMapping("/clients/{id}")
+    public ResponseEntity<Object> updateClient(@RequestBody Client client, @PathVariable long id) {
+
+        Optional<Client> clientOptional = clientService.getClient(id);
+
+        if (!clientOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        client.setId(id);
+
+        clientService.save(client);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 }

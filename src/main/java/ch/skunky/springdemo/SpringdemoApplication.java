@@ -19,8 +19,15 @@ import java.util.Map;
  * Docker Hub: xirip beatrice
  * https://github.com/wsargent/docker-cheat-sheet
  *
+ * The Book
+ * https://www.safaribooksonline.com/library/view/building-web-apps/9781787284661/1239259b-00a8-40e9-8535-cfc17c6d06d9.xhtml
+ * Video
+ * https://www.safaribooksonline.com/videos/the-complete-react/9781789950656/9781789950656-video1_1?autoplay=false
+ *
  * look at: Spring WebFlux
  *
+ * Security:
+ * consider JWT authentication (instead of Session / Cookies)
  *
  * java + docker (+ online docker server?)
  * https://codefresh.io/docker-tutorial/java_docker_pipeline/
