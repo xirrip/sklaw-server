@@ -16,7 +16,6 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @CrossOrigin
     @DeleteMapping("/clients/{id}")
     public void deleteClient(@PathVariable long id){
         clientService.deleteClient(id);
@@ -33,7 +32,6 @@ public class ClientController {
 
     }
 
-    @CrossOrigin
     @PutMapping("/clients/{id}")
     public ResponseEntity<Object> updateClient(@RequestBody Client client, @PathVariable long id) {
 

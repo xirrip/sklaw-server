@@ -31,7 +31,9 @@ dependencies {
     // implementation('org.springframework.boot:spring-boot-starter-jetty')
 
     // security
-    // compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
 
     // providedRuntime('org.apache.tomcat.embed:tomcat-embed-jasper')
     runtime('org.apache.tomcat.embed:tomcat-embed-jasper')
@@ -43,6 +45,14 @@ dependencies {
     // need a database...
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     // compile("com.h2database:h2")
+
+    compile('org.apache.commons:commons-lang3')
+    compile('com.fasterxml.jackson.core:jackson-databind')
+
+    compile('javax.xml.bind:jaxb-api:2.2.11')
+    compile('com.sun.xml.bind:jaxb-core:2.2.11')
+    compile('com.sun.xml.bind:jaxb-impl:2.2.11')
+    compile('javax.activation:activation:1.1.1')
 
     implementation('org.springframework.boot:spring-boot-starter-actuator')
 
@@ -61,14 +71,10 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
 
     testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
-
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
-
     testCompile "org.mockito:mockito-core:2.+"
-
     testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
-
 
 }

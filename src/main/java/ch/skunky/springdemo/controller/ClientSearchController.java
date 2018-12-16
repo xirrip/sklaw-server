@@ -4,6 +4,7 @@ import ch.skunky.springdemo.model.Client;
 import ch.skunky.springdemo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -31,6 +32,7 @@ public class ClientSearchController {
     }
 
 
+    @PreAuthorize("#oauth2.hasScope('read')")
     @CrossOrigin
     @GetMapping(value="/clients")
     public List<Client> searchClient(
