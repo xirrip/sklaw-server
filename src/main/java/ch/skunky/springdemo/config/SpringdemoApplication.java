@@ -29,6 +29,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  * CURRENT SECURITY GUIDE:
  *
+ * https://www.baeldung.com/security-spring
+ *
+ * maybe do an OpenID on top:
+ * https://www.baeldung.com/spring-security-openid-connect
+ * -> then angular gets easier, maybe? -> no, will require google account to login
+ *
  * READ FIRST:
  * https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
  * https://chariotsolutions.com/blog/post/angular-2-spring-boot-jwt-cors_part2/
@@ -42,6 +48,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * https://www.devglan.com/spring-security/spring-boot-jwt-auth
  * https://www.devglan.com/spring-security/jwt-role-based-authorization
  * https://www.devglan.com/spring-security/spring-boot-oauth2-jwt-example
+ *
+ *
+ * practical notes:
+ * if nothing else pops up, move the get access token to API side, and only return the token.
+ * needs HTTPS?!: https://drissamri.be/blog/java/enable-https-in-spring-boot/
+ *
+ * this could be a way around using client secret: https://jeremymarc.github.io/2014/08/14/oauth2-with-angular-the-right-way
  *
  */
 @SpringBootApplication
