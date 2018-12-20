@@ -46,6 +46,8 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     // compile("com.h2database:h2")
 
+    compile group: 'com.google.crypto.tink', name: 'tink', version: '1.2.1'
+    
     compile('org.apache.commons:commons-lang3')
     compile('com.fasterxml.jackson.core:jackson-databind')
 
