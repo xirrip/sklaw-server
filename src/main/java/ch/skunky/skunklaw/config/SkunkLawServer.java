@@ -62,9 +62,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"ch.skunky.skunklaw.config", "ch.skunky.skunklaw.controller",
         "ch.skunky.skunklaw.service",  })
 @EnableJpaRepositories("ch.skunky.skunklaw.repository")
-public class SpringdemoApplication {
+public class SkunkLawServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringdemoApplication.class, args);
+        SpringApplication.run(SkunkLawServer.class, args);
     }
 }

@@ -18,6 +18,8 @@ public class LawCase {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    private String name;
+    private String type;
 
     @Column(unique = true, updatable = false)
     private String caseId;

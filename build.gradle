@@ -11,11 +11,12 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
+
+// required if we want to serve web pages from here
+// apply plugin: 'war'
 
 group = 'ch.skunky'
 version = '0.0.1-SNAPSHOT'
@@ -28,22 +29,18 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
-    // implementation('org.springframework.boot:spring-boot-starter-jetty')
 
     // security
-    compile("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
 
-    // providedRuntime('org.apache.tomcat.embed:tomcat-embed-jasper')
-    runtime('org.apache.tomcat.embed:tomcat-embed-jasper')
-
     // jsp
-    compile('javax.servlet:jstl')
+    // runtime('org.apache.tomcat.embed:tomcat-embed-jasper')
+    // compile('javax.servlet:jstl')
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    // need a database...
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+    runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     // compile("com.h2database:h2")
 
     compile group: 'com.google.crypto.tink', name: 'tink', version: '1.2.1'
