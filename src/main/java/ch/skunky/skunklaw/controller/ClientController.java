@@ -26,14 +26,16 @@ public class ClientController {
 
     @PreAuthorize("hasAuthority('write')")
     @PostMapping("/clients")
-    public ResponseEntity<Object> createClient(@RequestBody Client client) {
+    public Client createClient(@RequestBody Client client) {
         Client savedClient = clientService.save(client);
-
+        /*
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedClient.getId()).toUri();
 
+        // return type: ResponseEntity<Object>
         return ResponseEntity.created(location).build();
-
+        */
+        return savedClient;
     }
 
     @PreAuthorize("hasAuthority('write')")

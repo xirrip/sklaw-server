@@ -3,10 +3,8 @@ package ch.skunky.skunklaw.model;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,4 +26,11 @@ public class Client {
 
     private String phoneNumber;
     private String email;
+
+    @ManyToMany(
+        mappedBy = "clients",
+        cascade = CascadeType.ALL
+    )
+
+    private List<LawCase> cases;
 }

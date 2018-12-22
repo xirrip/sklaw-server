@@ -26,7 +26,6 @@ public class ClientSearchController {
     private ClientService clientService;
 
     @PreAuthorize("hasAuthority('read')")
-    @CrossOrigin
     @GetMapping("/clients/{id}")
     public Client getClient(@PathVariable long id){
         Optional<Client> client = clientService.getClient(id);
@@ -36,7 +35,6 @@ public class ClientSearchController {
 
 
     @PreAuthorize("hasAuthority('read')")
-    @CrossOrigin
     @GetMapping(value="/clients")
     public List<Client> searchClient(
             @RequestParam(value="name", required=false) String name)
