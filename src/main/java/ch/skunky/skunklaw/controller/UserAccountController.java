@@ -41,7 +41,6 @@ public class UserAccountController {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Content-Type", "application/json");
-        // httpHeaders.setBasicAuth("fooClientIdPassword", "secret");
         httpHeaders.set("Authorization", authHeader);
 
         Map<String, String> userMap = new HashMap<>();
@@ -60,5 +59,29 @@ public class UserAccountController {
 
         return new User((String) resultMap.get("username"), null, (String) resultMap.get("email"));
     }
+
+    @PostMapping(value="/user/registeradminuser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public User registerAdminUser(String authHeader, @RequestBody User user) throws IOException {
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-Type", "application/json");
+
+        Map<String, String> userMap = new HashMap<>();
+        userMap.put("username", user.getUsername());
+        userMap.put("email", user.getEmail());
+        userMap.put("password", user.getPassword());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValueAsString(userMap);
+
+        HttpEntity <String> httpEntity = new HttpEntity <String> (objectMapper.writeValueAsString(userMap), httpHeaders);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.postForObject(USER_REGISTER, httpEntity, String.class);
+        Map resultMap = objectMapper.readValue(response, Map.class);
+
+        return new User((String) resultMap.get("username"), null, (String) resultMap.get("email"));
+    }
+
 
 }
