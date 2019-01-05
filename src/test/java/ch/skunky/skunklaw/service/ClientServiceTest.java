@@ -2,7 +2,6 @@ package ch.skunky.skunklaw.service;
 
 import ch.skunky.skunklaw.repository.ClientRepository;
 import ch.skunky.skunklaw.repository.LawCaseRepository;
-import ch.skunky.skunklaw.repository.LawCaseRepository;
 import ch.skunky.skunklaw.service.impl.ClientServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
