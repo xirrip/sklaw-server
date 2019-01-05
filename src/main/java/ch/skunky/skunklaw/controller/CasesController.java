@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +29,19 @@ public class CasesController {
         return ResponseEntity.ok(caseService.findAll());
     }
 
+    @PreAuthorize("hasAuthority('read')")
+    @GetMapping(value="/cases/{id}")
+    public ResponseEntity<LawCase> getLawCase(@PathVariable("id") long caseId)
+    {
+
+        Optional<LawCase> lawCase = caseService.getCase(caseId);
+        if(lawCase.isPresent()){
+            return ResponseEntity.ok(lawCase.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PreAuthorize("hasAuthority('read')")
     @GetMapping(value="/clients/{id}/cases")
