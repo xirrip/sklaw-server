@@ -2,6 +2,7 @@ package ch.skunky.skunklaw.service;
 
 import ch.skunky.skunklaw.repository.ClientRepository;
 import ch.skunky.skunklaw.repository.LawCaseRepository;
+import ch.skunky.skunklaw.repository.LawCaseRepository;
 import ch.skunky.skunklaw.service.impl.ClientServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,13 +21,13 @@ public class ClientServiceTest {
     @Mock
     private ClientRepository clientRepository;
     @Mock
-    private LawCaseRepository caseRepository;
+    private LawCaseRepository lawCaseRepository;
 
     private ClientService clientService;
 
     @BeforeEach
     public void setUp() throws Exception {
-        this.clientService = new ClientServiceImpl(clientRepository, caseRepository);
+        this.clientService = new ClientServiceImpl(clientRepository, lawCaseRepository);
     }
 
     @Test

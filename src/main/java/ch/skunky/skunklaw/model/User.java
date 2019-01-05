@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
+// @Entity no entity here!
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
