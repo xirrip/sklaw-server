@@ -2,6 +2,7 @@ package ch.skunky.skunklaw.controller;
 
 import ch.skunky.skunklaw.model.Client;
 import ch.skunky.skunklaw.model.LawCase;
+import ch.skunky.skunklaw.service.CaseService;
 import ch.skunky.skunklaw.service.ClientService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,24 @@ public class CasesController {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private CaseService caseService;
+
+    @PreAuthorize("hasAuthority('read')")
+    @GetMapping(value="/cases")
+    public ResponseEntity<List<LawCase>> getAllLawCases()
+    {
+        return ResponseEntity.ok(caseService.findAll());
+    }
+
+
     @PreAuthorize("hasAuthority('read')")
     @GetMapping(value="/clients/{id}/cases")
     public ResponseEntity<List<LawCase>> getLawCases(@PathVariable("id") long clientId)
     {
         Optional<Client> client = clientService.getClient(clientId);
         if(client.isPresent()){
-            return ResponseEntity.ok(client.get().getCases());
+            return ResponseEntity.ok(caseService.getCasesForClient(clientId));
         }
         else{
             return ResponseEntity.notFound().build();
@@ -39,15 +51,13 @@ public class CasesController {
         Optional<Client> client = clientService.getClient(clientId);
 
         if(client.isPresent()){
+            lawCase.setMainClientId(clientId);
+
             if(lawCase.getCaseId()==null){
                 lawCase.setCaseId(RandomStringUtils.randomAlphanumeric(10));
             }
-            String caseId = lawCase.getCaseId();
 
-            List<Client> clients = new ArrayList<>();
-            clients.add(client.get());
-
-            LawCase savedCase = clientService.save(lawCase);
+            LawCase savedCase = caseService.save(lawCase);
             return ResponseEntity.ok(savedCase);
         }
         else{

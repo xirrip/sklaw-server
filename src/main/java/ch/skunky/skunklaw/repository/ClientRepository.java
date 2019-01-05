@@ -21,5 +21,6 @@ import java.util.List;
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
     public List<Client> findClientByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
+    public List<Client> findAllByOrderByLastNameAscFirstNameAsc();
 
 }

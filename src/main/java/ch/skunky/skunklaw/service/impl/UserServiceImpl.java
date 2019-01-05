@@ -1,7 +1,8 @@
-package ch.skunky.skunklaw.service;
+package ch.skunky.skunklaw.service.impl;
 
 import ch.skunky.skunklaw.model.User;
 import ch.skunky.skunklaw.repository.UserRepository;
+import ch.skunky.skunklaw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

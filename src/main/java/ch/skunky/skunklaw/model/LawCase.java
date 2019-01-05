@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +25,7 @@ public class LawCase {
     @Column(unique = true, updatable = false)
     private String caseId;
 
-    @ManyToMany
-    private List<Client> clients;
+    private long mainClientId;
 
     private String description;
 
@@ -49,5 +49,4 @@ public class LawCase {
         lawTasks.remove(lawTask);
         lawTask.setLawCase(null);
     }
-
 }
