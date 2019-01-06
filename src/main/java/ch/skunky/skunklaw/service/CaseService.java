@@ -13,7 +13,7 @@ public interface CaseService {
 
     void deleteCase(long id);
 
-    LawCase save(LawCase client);
+    LawCase save(LawCase lawCase);
 
     List<LawCase> getCasesForClient(long clientId);
 }

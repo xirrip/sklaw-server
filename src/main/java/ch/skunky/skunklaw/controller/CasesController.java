@@ -43,6 +43,18 @@ public class CasesController {
         }
     }
 
+    @PreAuthorize("hasAuthority('write')")
+    @PutMapping("/cases/{id}")
+    public ResponseEntity<Object> updateCase(@RequestBody LawCase lawCase, @PathVariable long id) {
+        if(id != lawCase.getId()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        caseService.save(lawCase);
+        return ResponseEntity.noContent().build();
+    }
+
+
     @PreAuthorize("hasAuthority('read')")
     @GetMapping(value="/clients/{id}/cases")
     public ResponseEntity<List<LawCase>> getLawCases(@PathVariable("id") long clientId)
