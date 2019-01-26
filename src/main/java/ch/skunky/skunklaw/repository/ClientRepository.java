@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
-    public List<Client> findClientByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
-    public List<Client> findAllByOrderByLastNameAscFirstNameAsc();
+    List<Client> findClientByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
+    List<Client> findAllByOrderByLastNameAscFirstNameAsc();
 
 }
