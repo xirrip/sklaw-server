@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tags/*")
@@ -72,5 +74,17 @@ public class TaggingController {
         return ResponseEntity.ok(savedItem);
     }
 
+    @GetMapping("/items")
+    public ResponseEntity<List<TagItem>> searchItems(@RequestParam("universe") String universe, @RequestParam("topics") String topics, @RequestParam("depth") int depth){
+        String[] topicNames = topics.split(",");
+        List<TagTopic> tagTopics = new ArrayList<>(topicNames.length);
+        for(String topicName : topicNames){
+            Optional<TagTopic> topic = taggingService.findTopic(topicName.trim(), universe.trim());
+            if(topic.isPresent()) tagTopics.add(topic.get());
+        }
+
+        List<TagItem> items = taggingService.search(tagTopics, depth);
+        return ResponseEntity.ok(items);
+    }
 
 }

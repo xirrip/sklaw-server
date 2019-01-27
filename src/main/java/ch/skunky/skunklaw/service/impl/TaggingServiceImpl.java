@@ -12,9 +12,7 @@ import ch.skunky.skunklaw.service.TaggingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TaggingServiceImpl implements TaggingService {
@@ -33,6 +31,7 @@ public class TaggingServiceImpl implements TaggingService {
     public List<TagTopic> findAllTopics() {
         List<TagTopic> topics = new ArrayList<>();
         tagTopicRepository.findAll().forEach(topics::add);
+        topics.sort(Comparator.comparing(TagTopic::getName));
         return topics;
     }
 
@@ -70,6 +69,7 @@ public class TaggingServiceImpl implements TaggingService {
                 }
         );
 
+        topics.sort(Comparator.comparing(TagTopic::getName));
         return topics;
     }
 
@@ -81,6 +81,7 @@ public class TaggingServiceImpl implements TaggingService {
                     tagTopicRepository.findById(l.getTopicId()).ifPresent(topics::add);
                 }
         );
+        topics.sort(Comparator.comparing(TagTopic::getName));
         return topics;
     }
 
@@ -92,6 +93,7 @@ public class TaggingServiceImpl implements TaggingService {
                     tagItemRepository.findById(l.getItemId()).ifPresent(items::add);
                 }
         );
+        items.sort(Comparator.comparing(TagItem::getName));
         return items;
     }
 
@@ -155,5 +157,71 @@ public class TaggingServiceImpl implements TaggingService {
     public TagItem updateItem(TagItem item) {
         if(item.getId()==null) throw new IllegalArgumentException("Item not yet saved!");
         return tagItemRepository.save(item);
+    }
+
+    @Override
+    public List<TagItem> search(List<TagTopic> topics, int depth) {
+
+        List<Map<TagTopic, Integer>> topicsMap = new ArrayList<>();
+        topics.forEach(
+                t -> topicsMap.add(getLinkedTopicsMap(t, depth))
+        );
+
+        // only keep topics that are in all lists
+        List<TagTopic> theTopics = new ArrayList<>();
+
+        topicsMap.get(0).keySet().forEach(
+                t -> {
+                    int score = getScore(t, topicsMap);
+                    if(score >= 0){
+                        t.setWeight(score);
+                        theTopics.add(t);
+                    }
+                }
+        );
+
+        theTopics.sort(Comparator.comparingInt(TagTopic::getWeight));
+
+        List<TagItem> items = new ArrayList<>();
+        for(TagTopic t : theTopics){
+            findLinkedItems(t.getId()).stream()
+                    .filter(i -> !items.contains(i))
+                    .forEach(items::add);
+        }
+
+        return items;
+    }
+
+    private int getScore(TagTopic t, List<Map<TagTopic, Integer>> topicsMap) {
+        int score = 0;
+        for(Map<TagTopic, Integer> topicMap : topicsMap){
+            if(topicMap.containsKey(t)) score += topicMap.get(t);
+            else return -1;
+        }
+        return score;
+    }
+
+    private Map<TagTopic, Integer> getLinkedTopicsMap(TagTopic center, int depth){
+
+        Map<TagTopic, Integer> topics = new HashMap<>();
+        topics.put(center, 0);
+
+        List<TagTopic> outerShell = List.of(center);
+
+        for(int currentDepth = 1; currentDepth < depth; ++currentDepth){
+            List<TagTopic> nextOuterShell = new ArrayList<>();
+            for(TagTopic topic : outerShell){
+                findLinkedTopics(topic.getId()).stream()
+                        .filter(t -> !topics.containsKey(t))
+                        .forEach(t -> {
+                            nextOuterShell.add(t);
+                            topics.put(t, depth);
+                        });
+
+            }
+            outerShell = nextOuterShell;
+        }
+
+        return topics;
     }
 }

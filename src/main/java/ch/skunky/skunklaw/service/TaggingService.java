@@ -26,6 +26,8 @@ public interface TaggingService {
     TagItem createItem(TagItem item, String... topics);
     TagItem updateItem(TagItem item);
 
+    List<TagItem> search(List<TagTopic> topics, int depth);
+
     // TODO remove item from topic -> update links
     // TODO remove item
     // TODO remove topic
