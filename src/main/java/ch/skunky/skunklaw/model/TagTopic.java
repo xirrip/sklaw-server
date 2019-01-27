@@ -1,6 +1,8 @@
 package ch.skunky.skunklaw.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,6 +14,8 @@ import javax.persistence.*;
 )
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TagTopic {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

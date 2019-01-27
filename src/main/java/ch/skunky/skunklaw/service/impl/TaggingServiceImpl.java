@@ -116,6 +116,10 @@ public class TaggingServiceImpl implements TaggingService {
             topicName = topicName.trim();
 
             Optional<TagTopic> topicOptional = tagTopicRepository.findByNameAndUniverse(topicName, item.getUniverse());
+            if(topicOptional.isEmpty()){
+                // create topic on the fly
+                topicOptional = Optional.of(tagTopicRepository.save(new TagTopic(null, topicName, item.getUniverse(), 0)));
+            }
             if(topicOptional.isPresent()){
                 TagTopic topic = topicOptional.get();
                 allTopics.add(topic);
