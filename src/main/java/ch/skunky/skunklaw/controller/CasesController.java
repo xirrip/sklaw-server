@@ -1,9 +1,11 @@
 package ch.skunky.skunklaw.controller;
 
 import ch.skunky.skunklaw.dto.law.LawCaseDto;
+import ch.skunky.skunklaw.dto.law.LawTaskDto;
 import ch.skunky.skunklaw.dto.law.service.LawDtoMappingService;
 import ch.skunky.skunklaw.model.law.LawClient;
 import ch.skunky.skunklaw.model.law.LawCase;
+import ch.skunky.skunklaw.model.law.LawTask;
 import ch.skunky.skunklaw.service.CaseService;
 import ch.skunky.skunklaw.service.ClientService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -67,6 +69,31 @@ public class CasesController {
 
         caseService.save(mappingService.fromDto(lawCase));
         return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("hasAuthority('read')")
+    @GetMapping(value="/cases/{id}/tasks")
+    public ResponseEntity<List<LawTaskDto>> getLawTasks(@PathVariable("id") long caseId)
+    {
+        List<LawTask> allTasks = caseService.findAllTasks(caseId);
+        return ResponseEntity.ok(mappingService.toLawTasksDto(allTasks));
+    }
+
+    @PreAuthorize("hasAuthority('write')")
+    @PostMapping("/cases/{id}/tasks")
+    public ResponseEntity<LawTaskDto> createLawCase(@PathVariable("id") long caseId, @RequestBody LawTaskDto lawTaskDto) {
+        Optional<LawCase> lawCase = caseService.getCase(caseId);
+
+        if(lawCase.isPresent()){
+            LawTask lawTask = mappingService.fromDto(lawTaskDto);
+            lawTask.setLawCase(lawCase.get());
+
+            LawTask savedTask = caseService.save(lawTask);
+            return ResponseEntity.ok(mappingService.toDto(savedTask));
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

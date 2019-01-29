@@ -80,6 +80,10 @@ public class LawDtoMappingService {
         return lawTask;
     }
 
+    public List<LawTaskDto> toLawTasksDto(List<LawTask> lawTasks){
+        return lawTasks.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
     // work logs
     public WorkLogDto toDto(WorkLog workLog){
         WorkLogDto dto = modelMapper.map(workLog, WorkLogDto.class);

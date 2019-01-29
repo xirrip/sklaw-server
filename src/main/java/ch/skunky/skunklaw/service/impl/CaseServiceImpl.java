@@ -1,8 +1,10 @@
 package ch.skunky.skunklaw.service.impl;
 
 import ch.skunky.skunklaw.model.law.LawCase;
+import ch.skunky.skunklaw.model.law.LawTask;
 import ch.skunky.skunklaw.repository.ClientRepository;
 import ch.skunky.skunklaw.repository.LawCaseRepository;
+import ch.skunky.skunklaw.repository.LawTaskRepository;
 import ch.skunky.skunklaw.service.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +14,16 @@ import java.util.*;
 @Service
 public class CaseServiceImpl implements CaseService {
 
-    private ClientRepository clientRepository;
-    private LawCaseRepository lawCaseRepository;
+    final private ClientRepository clientRepository;
+    final private LawCaseRepository lawCaseRepository;
+    final private LawTaskRepository lawTaskRepository;
 
     // make dependency visible
     @Autowired
-    public CaseServiceImpl(ClientRepository clientRepository, LawCaseRepository lawCaseRepository){
+    public CaseServiceImpl(ClientRepository clientRepository, LawCaseRepository lawCaseRepository, LawTaskRepository lawTaskRepository){
         this.clientRepository = clientRepository;
         this.lawCaseRepository = lawCaseRepository;
+        this.lawTaskRepository = lawTaskRepository;
     }
 
     @Override
@@ -52,6 +56,11 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
+    public List<LawTask> findAllTasks(long caseId){
+        return lawTaskRepository.findByLawCaseId(caseId);
+    }
+
+    @Override
     public void deleteCase(long id) {
         lawCaseRepository.deleteById(id);
     }
@@ -61,6 +70,10 @@ public class CaseServiceImpl implements CaseService {
         return lawCaseRepository.save(lawCase);
     }
 
+    @Override
+    public LawTask save(LawTask lawTask) {
+        return lawTaskRepository.save(lawTask);
+    }
 }
 
 

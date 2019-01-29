@@ -29,6 +29,8 @@ public class LawTask {
     private String type;
     private String description;
 
+    private Date dueDate;
+
     private BigDecimal hourlyCharge;
 
     @Temporal(TemporalType.TIMESTAMP)
