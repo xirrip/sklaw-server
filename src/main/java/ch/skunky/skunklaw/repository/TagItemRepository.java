@@ -1,6 +1,6 @@
 package ch.skunky.skunklaw.repository;
 
-import ch.skunky.skunklaw.model.TagItem;
+import ch.skunky.skunklaw.model.tags.TagItem;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

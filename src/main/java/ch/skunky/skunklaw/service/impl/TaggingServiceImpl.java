@@ -1,9 +1,9 @@
 package ch.skunky.skunklaw.service.impl;
 
-import ch.skunky.skunklaw.model.TagItem;
-import ch.skunky.skunklaw.model.TagItemLink;
-import ch.skunky.skunklaw.model.TagLink;
-import ch.skunky.skunklaw.model.TagTopic;
+import ch.skunky.skunklaw.model.tags.TagItem;
+import ch.skunky.skunklaw.model.tags.TagItemLink;
+import ch.skunky.skunklaw.model.tags.TagLink;
+import ch.skunky.skunklaw.model.tags.TagTopic;
 import ch.skunky.skunklaw.repository.TagItemLinkRepository;
 import ch.skunky.skunklaw.repository.TagItemRepository;
 import ch.skunky.skunklaw.repository.TagLinkRepository;

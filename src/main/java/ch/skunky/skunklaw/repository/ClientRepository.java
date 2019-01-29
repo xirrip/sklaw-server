@@ -1,6 +1,6 @@
 package ch.skunky.skunklaw.repository;
 
-import ch.skunky.skunklaw.model.Client;
+import ch.skunky.skunklaw.model.law.LawClient;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +18,9 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface ClientRepository extends CrudRepository<Client, Long> {
+public interface ClientRepository extends CrudRepository<LawClient, Long> {
 
-    List<Client> findClientByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
-    List<Client> findAllByOrderByLastNameAscFirstNameAsc();
+    List<LawClient> findClientByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
+    List<LawClient> findAllByOrderByLastNameAscFirstNameAsc();
 
 }

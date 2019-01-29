@@ -1,4 +1,4 @@
-package ch.skunky.skunklaw.model;
+package ch.skunky.skunklaw.model.tags;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

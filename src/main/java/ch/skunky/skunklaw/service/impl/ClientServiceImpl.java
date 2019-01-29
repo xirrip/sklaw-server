@@ -1,6 +1,6 @@
 package ch.skunky.skunklaw.service.impl;
 
-import ch.skunky.skunklaw.model.Client;
+import ch.skunky.skunklaw.model.law.LawClient;
 import ch.skunky.skunklaw.repository.ClientRepository;
 import ch.skunky.skunklaw.repository.LawCaseRepository;
 import ch.skunky.skunklaw.service.ClientService;
@@ -25,25 +25,25 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<LawClient> findAll() {
 
-        List<Client> clients = new ArrayList<Client>();
-        Iterable<Client> clientIterable = clientRepository.findAllByOrderByLastNameAscFirstNameAsc();
+        List<LawClient> clients = new ArrayList<LawClient>();
+        Iterable<LawClient> clientIterable = clientRepository.findAllByOrderByLastNameAscFirstNameAsc();
         clientIterable.forEach(clients::add);
         return clients;
     }
 
     @Override
-    public List<Client> findClientLike(String name) {
-        List<Client> clients = new ArrayList<Client>();
-        Iterable<Client> clientIterable = clientRepository.findClientByFirstNameContainingOrLastNameContaining(name, name);
+    public List<LawClient> findClientLike(String name) {
+        List<LawClient> clients = new ArrayList<LawClient>();
+        Iterable<LawClient> clientIterable = clientRepository.findClientByFirstNameContainingOrLastNameContaining(name, name);
         clientIterable.forEach(clients::add);
 
         return clients;
     }
 
     @Override
-    public Optional<Client> getClient(long id) {
+    public Optional<LawClient> getClient(long id) {
         return clientRepository.findById(id);
     }
 
@@ -53,8 +53,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client save(Client client) {
-        return clientRepository.save(client);
+    public LawClient save(LawClient lawClient) {
+        return clientRepository.save(lawClient);
     }
 
 }

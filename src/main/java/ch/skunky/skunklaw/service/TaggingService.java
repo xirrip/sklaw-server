@@ -1,7 +1,7 @@
 package ch.skunky.skunklaw.service;
 
-import ch.skunky.skunklaw.model.TagItem;
-import ch.skunky.skunklaw.model.TagTopic;
+import ch.skunky.skunklaw.model.tags.TagItem;
+import ch.skunky.skunklaw.model.tags.TagTopic;
 
 import java.util.List;
 import java.util.Optional;

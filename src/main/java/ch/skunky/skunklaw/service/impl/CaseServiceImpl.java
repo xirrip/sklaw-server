@@ -1,11 +1,9 @@
 package ch.skunky.skunklaw.service.impl;
 
-import ch.skunky.skunklaw.model.Client;
-import ch.skunky.skunklaw.model.LawCase;
+import ch.skunky.skunklaw.model.law.LawCase;
 import ch.skunky.skunklaw.repository.ClientRepository;
 import ch.skunky.skunklaw.repository.LawCaseRepository;
 import ch.skunky.skunklaw.service.CaseService;
-import ch.skunky.skunklaw.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

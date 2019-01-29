@@ -1,19 +1,12 @@
-package ch.skunky.skunklaw.model;
+package ch.skunky.skunklaw.dto.law;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
+/**
+ * https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+ */
 @Data
-@RequiredArgsConstructor
-public class Client {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+public class LawClientDto {
     private Long id;
 
     private String nickName;

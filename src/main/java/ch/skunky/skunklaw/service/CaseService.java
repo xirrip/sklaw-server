@@ -1,6 +1,6 @@
 package ch.skunky.skunklaw.service;
 
-import ch.skunky.skunklaw.model.LawCase;
+import ch.skunky.skunklaw.model.law.LawCase;
 
 import java.util.List;
 import java.util.Optional;

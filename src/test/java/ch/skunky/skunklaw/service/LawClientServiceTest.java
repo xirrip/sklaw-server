@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-public class ClientServiceTest {
+public class LawClientServiceTest {
 
     @Mock
     private ClientRepository clientRepository;

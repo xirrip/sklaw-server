@@ -1,12 +1,16 @@
 package ch.skunky.skunklaw.controller;
 
-import ch.skunky.skunklaw.model.Client;
+import ch.skunky.skunklaw.dto.law.LawClientDto;
+import ch.skunky.skunklaw.dto.law.service.LawDtoMappingService;
+import ch.skunky.skunklaw.model.law.LawClient;
 import ch.skunky.skunklaw.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,34 +20,36 @@ import java.util.Optional;
  * https://spring.io/blog/2015/06/08/cors-support-in-spring-framework
  * https://www.baeldung.com/spring-cors
  *
- * @PreAuthorize("#oauth2.hasScope('read')")
  */
-
 @RestController
 public class ClientSearchController {
 
+    final private ClientService clientService;
+    final private LawDtoMappingService mappingService;
+
     @Autowired
-    private ClientService clientService;
+    public ClientSearchController(ClientService clientService, LawDtoMappingService mappingService) {
+        this.clientService = clientService;
+        this.mappingService = mappingService;
+    }
 
     @PreAuthorize("hasAuthority('read')")
     @GetMapping("/clients/{id}")
-    public Client getClient(@PathVariable long id){
-        Optional<Client> client = clientService.getClient(id);
-        if(client.isPresent()) return client.get();
-        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+    public ResponseEntity<LawClientDto> getClient(@PathVariable long id){
+        Optional<LawClient> client = clientService.getClient(id);
+        return ResponseEntity.of(mappingService.toClientDto(client));
     }
 
 
     @PreAuthorize("hasAuthority('read')")
     @GetMapping(value="/clients")
-    public List<Client> searchClient(
-            @RequestParam(value="name", required=false) String name)
+    public ResponseEntity<List<LawClientDto>> searchClient(@RequestParam(value="name", required=false) String name)
     {
         if(name!=null){
-            return clientService.findClientLike(name);
+            return ResponseEntity.ok(mappingService.toLawClientsDto(clientService.findClientLike(name)));
         }
         else{
-            return clientService.findAll();
+            return ResponseEntity.ok(mappingService.toLawClientsDto(clientService.findAll()));
         }
     }
 

@@ -1,7 +1,7 @@
 package ch.skunky.skunklaw.controller;
 
-import ch.skunky.skunklaw.model.TagItem;
-import ch.skunky.skunklaw.model.TagTopic;
+import ch.skunky.skunklaw.model.tags.TagItem;
+import ch.skunky.skunklaw.model.tags.TagTopic;
 import ch.skunky.skunklaw.service.TaggingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +80,7 @@ public class TaggingController {
         List<TagTopic> tagTopics = new ArrayList<>(topicNames.length);
         for(String topicName : topicNames){
             Optional<TagTopic> topic = taggingService.findTopic(topicName.trim(), universe.trim());
-            if(topic.isPresent()) tagTopics.add(topic.get());
+            topic.ifPresent(tagTopics::add);
         }
 
         List<TagItem> items = taggingService.search(tagTopics, depth);
